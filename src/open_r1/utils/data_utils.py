@@ -93,8 +93,9 @@ def get_light_evals(proportions, num_train=2500, num_test=1000, seed=42):
         test_datasets[eval_type] = sampled_dataset
 
     # Concatenate the sampled datasets
-    data_dict = {
-        eval_type: test_datasets[eval_type] for eval_type in ALL_LIGHT_EVAL_TYPES
-    }
+    test_datasets = concatenate_datasets(
+        [test_datasets[eval_type] for eval_type in ALL_LIGHT_EVAL_TYPES]
+    )
+    data_dict["test"] = test_datasets
     data_dict["train"] = train_dataset
     return DatasetDict(data_dict)
